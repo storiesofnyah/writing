@@ -5,13 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Writing Space</title>
   <style>
-    :root {
-      --bg: #f4f4f6;
-      --paper: rgba(255, 255, 255, 0.85);
-      --text: #222;
-      --radius: 18px;
-    }
+   :root {
+  --bg: #f4f4f6;
+  --paper: rgba(255, 255, 255, 0.85);
+  --text: #222;
+  --radius: 18px;
+  }
 
+body.dark {
+  --bg: #0f0f14;
+  --paper: rgba(25, 25, 35, 0.85);
+  --text: #e8e8ee;
+    }
+    
     body {
       margin: 0;
       padding: 1rem;
@@ -86,6 +92,7 @@
           0 words
       </p>
     <div class="controls">
+      <button class="secondary" onclick="toggleDarkMode()">Dark mode</button>
       <button onclick="exportText()">Export as .txt</button>
       <label>
         <input type="file" accept="image/*" hidden onchange="setBackground(event)" />
@@ -155,6 +162,20 @@ updateWordCount();
       paper.style.backgroundSize = 'cover';
       paper.style.backgroundPosition = 'center';
     }
+
+    function toggleDarkMode() {
+  document.body.classList.toggle('dark');
+  localStorage.setItem(
+    'darkMode',
+    document.body.classList.contains('dark')
+  );
+}
+
+// restore preference
+if (localStorage.getItem('darkMode') === 'true') {
+  document.body.classList.add('dark');
+}
+
   </script>
 </body>
 </html>
