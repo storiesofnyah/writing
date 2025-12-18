@@ -101,9 +101,21 @@
 
     // Autosave
     textarea.value = localStorage.getItem('storyText') || '';
-    textarea.addEventListener('input', () => {
-      localStorage.setItem('storyText', textarea.value);
-    });
+    const wordcount = document.getElementById('wordcount');
+
+function updateWordCount() {
+  const words = textarea.value.trim().split(/\s+/).filter(Boolean);
+  wordcount.textContent = `${words.length} words`;
+}
+
+textarea.addEventListener('input', () => {
+  localStorage.setItem('storyText', textarea.value);
+  updateWordCount();
+});
+
+// initial count on load
+updateWordCount();
+
 
     function exportText() {
       const blob = new Blob([textarea.value], { type: 'text/plain' });
